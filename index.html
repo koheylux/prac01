@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TEST</title>
+  <style>
+    body{
+      display: flex;
+      justify-content: center;
+      font-family:'Courier New', Courier, monospace;
+    }
+
+    main{
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1{
+      margin: 10px;
+    }
+
+    h2{
+      margin: 10px 20px;
+    }
+
+    p{
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .number{
+      font-size: 50px;
+      font-family: 'Georgia';
+      margin: 0;
+      padding: 0;
+    }
+
+    .CurrentData{
+      margin: 10px;
+      width: 500px;
+      height: 250px;
+      background-color: #90EE90;
+    }
+
+    .SetData{
+      margin: 10px;
+      width: 500px;
+      height: 250px;
+      background-color: #FFB6C1;
+    }
+
+    .C_Display{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .S_Display{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tmp{
+      padding: 50px 100px;
+      position: relative;
+    }
+
+    .temperature_up_btn, .humidity_up_btn{
+      position: absolute;
+      top: 65px;
+      right: 60px;
+    }
+
+    .temperature_down_btn, .humidity_down_btn{
+      position: absolute;
+      top: 85px;
+      right: 60px;
+    }
+
+    .hmd{
+      padding: 50px 100px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>温度・湿度制御</h1>
+    <div class="CurrentData">
+      <h2>現在</h2>
+      <div class="C_Display">
+        <div class="tmp">
+          <p class="number C_temperature_display_num">30</p>
+          <p>温度(℃)</p>
+        </div>
+        <div class="hmd">
+          <p class="number">60</p>
+          <p>湿度(%)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="SetData">
+      <h2>設定</h2>
+      <div class="S_Display">
+        <div class="tmp">
+          <p class="number temperature_display_num">20</p>
+          <input type="button" value="＋" class="temperature_up_btn">
+          <input type="button" value="－" class="temperature_down_btn">
+          <p>温度(℃)</p>
+        </div>
+        <div class="hmd">
+          <p class="number humidity_display_num">60</p>
+          <input type="button" value="＋" class="humidity_up_btn">
+          <input type="button" value="－" class="humidity_down_btn">
+          <p>湿度(%)</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(function(){
+      const max_temperature = 50;
+      const min_temperature = 0;
+
+      const max_humidity = 100;
+      const min_humidity = 0;
+
+      $(".temperature_up_btn").on("click", function(event){
+        var val = parseInt( $(".temperature_display_num").text() ) + 1;
+        if(val <= max_temperature){
+          $(".temperature_display_num").html(val);
+        }
+      });
+      $(".temperature_down_btn").on("click", function(event){
+        var val = parseInt( $(".temperature_display_num").text() ) - 1;
+        if(val >= min_temperature){
+          $(".temperature_display_num").html(val);
+        }
+      });
+
+      $(".humidity_up_btn").on("click", function(event){
+        var val = parseInt( $(".humidity_display_num").text() ) + 1;
+        if(val <= max_humidity){
+          $(".humidity_display_num").html(val);
+        }
+      });
+      $(".humidity_down_btn").on("click", function(event){
+        var val = parseInt( $(".humidity_display_num").text() ) - 1;
+        if(val >= min_humidity){
+          $(".humidity_display_num").html(val);
+        }
+      });
+
+      setInterval(update, 4000);
+      function update(){
+        var S_temperature_val = parseInt( $(".temperature_display_num").text() );
+        var C_temperature_val = parseInt( $(".C_temperature_display_num").text() );
+        var diff = S_temperature_val - C_temperature_val;
+        if(Math.abs(diff) > 5){
+          alert("hoge");
+          // $(".error_message").html("error!");
+        }else{
+          // $(".error_message").html("");
+          alert("fuga");
+        }
+      }
+
+    });
+
+
+  </script>
+</body>
+</html>
