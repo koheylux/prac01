@@ -1,2 +1,1 @@
-# nakanishi intern
-# 温度湿度制御
+# 温度湿度制御（nakanishiインターン用サンプル）
